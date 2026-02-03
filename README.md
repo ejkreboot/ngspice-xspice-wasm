@@ -90,6 +90,33 @@ const ngspice = await import('./output/ngspice.js');
 // when needed by the simulator
 ```
 
+## Demo (browser playground)
+
+A prebuilt playground lives in [demo/index.html](demo/index.html) with a worker wired to the WASM build. It stages the bundled code models and `spinit`, starts a fresh worker per run, and streams stdout/stderr live.
+
+### Run locally
+
+From the repo root:
+
+1. Serve the `demo/` folder (any static server works):
+   ```bash
+   cd demo
+   python -m http.server 8000
+   ```
+2. Open http://localhost:8000/
+3. Edit the netlist in the left pane and click “Run simulation.” Output streams on the right; each run instantiates a clean worker and reloads the virtual filesystem.
+
+### What’s included
+- `ngspice.js` / `ngspice.wasm` (WASM build)
+- `cm/*.cm` XSPICE code models staged into `/usr/local/lib/ngspice`
+- `spinit` staged into `/usr/local/share/ngspice/scripts/spinit` and `/spinit`
+- Worker: [demo/ngspice-worker.js](demo/ngspice-worker.js)
+
+### Notes
+- Serve over HTTP(S) to avoid CORS when fetching WASM and code models.
+- Each run is single-shot; stopping mid-run = terminate the worker.
+- The UI suppresses expected `/proc/meminfo` and keepRuntimeAlive warnings for cleaner logs.
+
 ## Credits
 
 - [ngspice](http://ngspice.sourceforge.net/) - Original SPICE simulator
@@ -98,4 +125,24 @@ const ngspice = await import('./output/ngspice.js');
 
 ## License
 
-This build system is provided as-is. ngspice is distributed under its own license (BSD-3-Clause). Please refer to the ngspice documentation for licensing details.
+MIT License
+
+Copyright (c) 2026 Eric J. Kort
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

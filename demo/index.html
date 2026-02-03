@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>ngspice WASM Playground</title>
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+	<style>
+		:root {
+			--bg: #0f1629;
+			--panel: rgba(255, 255, 255, 0.06);
+			--panel-strong: rgba(255, 255, 255, 0.12);
+			--text: #e9edf5;
+			--muted: #9eb1d0;
+			--accent: #36d6ae;
+			--accent-2: #7fd7ff;
+			--danger: #ff7a7a;
+			--mono: 'JetBrains Mono', monospace;
+			--sans: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+			--shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+		}
+
+		* { box-sizing: border-box; }
+
+		body {
+			margin: 0;
+			min-height: 100vh;
+			color: var(--text);
+			font-family: var(--sans);
+			background: radial-gradient(circle at 20% 20%, rgba(54, 214, 174, 0.12), transparent 35%),
+									radial-gradient(circle at 80% 0%, rgba(127, 215, 255, 0.12), transparent 40%),
+									linear-gradient(135deg, #0c1221 0%, #0b0f1c 100%);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: 32px 18px 42px;
+		}
+
+		.shell {
+			width: min(1200px, 100%);
+			height: 90vh;
+			max-height: 90vh;
+			display: flex;
+			flex-direction: column;
+			overflow: hidden;
+			background: var(--panel);
+			border: 1px solid rgba(255, 255, 255, 0.06);
+			border-radius: 18px;
+			padding: 26px;
+			box-shadow: var(--shadow);
+			backdrop-filter: blur(10px);
+		}
+
+		header {
+			display: flex;
+			align-items: flex-start;
+			justify-content: space-between;
+			gap: 12px;
+			margin-bottom: 18px;
+		}
+
+		h1 {
+			margin: 0;
+			font-weight: 600;
+			letter-spacing: -0.02em;
+			font-size: clamp(24px, 4vw, 32px);
+		}
+
+		.eyebrow {
+			display: inline-flex;
+			align-items: center;
+			gap: 8px;
+			color: var(--muted);
+			font-size: 13px;
+			text-transform: uppercase;
+			letter-spacing: 0.08em;
+		}
+
+		.pill {
+			padding: 4px 10px;
+			border-radius: 999px;
+			background: var(--panel-strong);
+			color: var(--accent);
+			border: 1px solid rgba(54, 214, 174, 0.4);
+		}
+
+		.grid {
+			display: grid;
+			grid-template-columns: minmax(340px, 1fr) minmax(380px, 1.25fr);
+			gap: 18px;
+			grid-auto-rows: 1fr;
+			flex: 1;
+			min-height: 0;
+			overflow: hidden;
+		}
+
+		.card {
+			background: var(--panel-strong);
+			border: 1px solid rgba(255, 255, 255, 0.05);
+			border-radius: 14px;
+			padding: 16px;
+			box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+			display: flex;
+			flex-direction: column;
+			min-height: 0;
+		}
+
+		label {
+			display: block;
+			font-size: 13px;
+			letter-spacing: 0.02em;
+			margin-bottom: 8px;
+			color: var(--muted);
+		}
+
+		textarea {
+			width: 100%;
+			min-height: 220px;
+			height: 100%;
+			flex: 1;
+			min-height: 0;
+			background: #0b0f1c;
+			color: var(--text);
+			border: 1px solid rgba(255, 255, 255, 0.08);
+			border-radius: 12px;
+			padding: 12px;
+			font-family: var(--mono);
+			font-size: 14px;
+			resize: vertical;
+			line-height: 1.4;
+			outline: none;
+			transition: border-color 0.15s ease, box-shadow 0.15s ease;
+		}
+
+		textarea:focus {
+			border-color: rgba(127, 215, 255, 0.6);
+			box-shadow: 0 0 0 3px rgba(127, 215, 255, 0.15);
+		}
+
+		.controls {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			margin-top: 12px;
+			flex-wrap: wrap;
+		}
+
+		button {
+			border: none;
+			border-radius: 12px;
+			padding: 12px 16px;
+			font-weight: 600;
+			cursor: pointer;
+			color: #0b0f1c;
+			background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+			box-shadow: 0 12px 30px rgba(127, 215, 255, 0.35);
+			transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease;
+		}
+
+		button:disabled {
+			opacity: 0.5;
+			cursor: not-allowed;
+			box-shadow: none;
+			transform: none;
+		}
+
+		button:hover:not(:disabled) {
+			transform: translateY(-1px);
+			box-shadow: 0 16px 38px rgba(127, 215, 255, 0.45);
+		}
+
+		.ghost {
+			background: transparent;
+			color: var(--text);
+			border: 1px solid rgba(255, 255, 255, 0.1);
+			box-shadow: none;
+		}
+
+		.status {
+			margin-left: auto;
+			font-size: 13px;
+			color: var(--muted);
+			display: inline-flex;
+			align-items: center;
+			gap: 8px;
+		}
+
+		.dot {
+			width: 10px;
+			height: 10px;
+			border-radius: 50%;
+			background: var(--accent);
+			box-shadow: 0 0 12px rgba(54, 214, 174, 0.8);
+		}
+
+		.log {
+			font-family: var(--mono);
+			font-size: 12px;
+			background: #0b0f1c;
+			border-radius: 12px;
+			border: 1px solid rgba(255, 255, 255, 0.08);
+			padding: 12px;
+			flex: 1;
+			min-height: 0;
+			white-space: pre-wrap;
+			word-break: break-word;
+			overflow-y: auto;
+			line-height: 1.35;
+		}
+
+		.log .stderr { color: var(--danger); }
+		.log .stdout { color: var(--text); }
+		.log .meta { color: var(--muted); }
+
+		footer {
+			margin-top: 14px;
+			color: var(--muted);
+			font-size: 13px;
+			display: flex;
+			gap: 10px;
+			align-items: center;
+			flex-wrap: wrap;
+		}
+
+		@media (max-width: 720px) {
+			.controls { flex-wrap: wrap; }
+			.status { width: 100%; justify-content: flex-start; margin-left: 0; }
+		}
+	</style>
+</head>
+<body>
+	<div class="shell">
+		<header>
+			<div>
+				<div class="eyebrow">
+					<span class="pill">WASM</span>
+					<span>ngspice + XSpice</span>
+				</div>
+				<h1>ngspice WASM Playground</h1>
+				<p style="margin: 6px 0 0; color: var(--muted);">Enter a SPICE simulation, run it in a fresh web worker, and stream the solver output live.</p>
+			</div>
+		</header>
+
+		<div class="grid">
+			<section class="card">
+				<label for="netlist">Netlist</label>
+				<textarea id="netlist" spellcheck="false"></textarea>
+				<div class="controls">
+					<button id="run">Run simulation</button>
+					<button id="clear" class="ghost">Clear output</button>
+					<div class="status" id="status">
+						<span class="dot"></span>
+						<span>Idle</span>
+					</div>
+				</div>
+			</section>
+
+			<section class="card">
+				<label for="log">Output</label>
+				<div id="log" class="log" aria-live="polite"></div>
+			</section>
+		</div>
+
+		<footer>
+			<span>Each run starts a clean worker and rebuilds the virtual filesystem with bundled code models.</span>
+			<span style="color: var(--text);">Tip:</span>
+			<span>Serve this folder (e.g. python -m http.server 8000) to avoid CORS issues.</span>
+		</footer>
+	</div>
+
+	<script>
+		const defaultNetlist = `* RC low-pass demo
+V1 in 0 PULSE(0 5 0 1n 1n 1u 2u)
+R1 in out 1k
+C1 out 0 1u
+
+.control
+	set numdgt=3
+	tran 1u 20u
+	print v(in) v(out)
+.endc
+.end
+`;
+
+		const netlistEl = document.getElementById('netlist');
+		const runBtn = document.getElementById('run');
+		const clearBtn = document.getElementById('clear');
+		const logEl = document.getElementById('log');
+		const statusEl = document.getElementById('status');
+		let currentWorker = null;
+
+		netlistEl.value = defaultNetlist;
+		clearLog();
+
+		runBtn.addEventListener('click', () => {
+			if (currentWorker) {
+				currentWorker.terminate();
+				currentWorker = null;
+			}
+			startRun();
+		});
+
+		clearBtn.addEventListener('click', () => {
+			clearLog();
+		});
+
+		function startRun() {
+			const netlist = netlistEl.value;
+			clearLog();
+			setStatus('Preparing worker…');
+			runBtn.disabled = true;
+
+			currentWorker = new Worker('ngspice-worker.js');
+			currentWorker.onmessage = (event) => {
+				const { type } = event.data;
+				if (type === 'stdout') appendLog(event.data.line, 'stdout');
+				else if (type === 'stderr') appendLog(event.data.line, 'stderr');
+				else if (type === 'status') appendLog(event.data.message, 'meta');
+				else if (type === 'exit') setStatus(`Exit code ${event.data.code}`);
+				else if (type === 'error') {
+					appendLog(event.data.message, 'stderr');
+					setStatus('Errored');
+					finishRun();
+				} else if (type === 'done') {
+					setStatus(`Completed (exit ${event.data.exitCode})`);
+					finishRun();
+				}
+			};
+
+			currentWorker.onerror = (error) => {
+				appendLog(error.message || 'Worker error', 'stderr');
+				setStatus('Errored');
+				finishRun();
+			};
+
+			currentWorker.postMessage({ type: 'run', netlist });
+		}
+
+		function appendLog(line, variant = 'stdout') {
+			const entry = document.createElement('div');
+			entry.className = variant;
+			entry.textContent = line;
+			logEl.appendChild(entry);
+			logEl.scrollTop = logEl.scrollHeight;
+		}
+
+		function clearLog() {
+			logEl.innerHTML = '';
+			appendLog('Ready. Edit the spice code and run a simulation.', 'meta');
+			setStatus('Idle');
+		}
+
+		function setStatus(text) {
+			const label = statusEl.querySelector('span:last-child');
+			label.textContent = text;
+		}
+
+		function finishRun() {
+			runBtn.disabled = false;
+			if (currentWorker) {
+				currentWorker.terminate();
+				currentWorker = null;
+			}
+		}
+	</script>
+</body>
+</html>
