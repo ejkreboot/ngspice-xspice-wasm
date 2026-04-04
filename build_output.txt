@@ -1,0 +1,959 @@
+make[2]: Leaving directory '/build/ngspice-sf-mirror/release-lib/src/osdi'
+make[2]: Entering directory '/build/ngspice-sf-mirror/release-lib/src'
+  CC       libngspice_la-conf.lo
+  CC       libngspice_la-ngspice.lo
+  CC       libngspice_la-sharedspice.lo
+rm -f spinit spinit.tmp
+srcdir=''; \
+  test -f ./spinit.in || srcdir=../../src/; \
+  sed -e 's|@XSPICEINIT[@]||g' -e 's|@pkglibdir[@]|/usr/local/lib/ngspice|g' ${srcdir}spinit.in >spinit.tmp
+mv spinit.tmp spinit
+  CCLD     libngspice.la
+emcc: warning: linking a library with `-shared` will emit a static object file.  This is a form of emulation to support existing build systems.  If you want to build a runtime shared library use the SIDE_MODULE setting. [-Wemcc]
+emcc: warning: ignoring unsupported linker flag: `-soname` [-Wlinkflags]
+make[2]: Leaving directory '/build/ngspice-sf-mirror/release-lib/src'
+make[1]: Leaving directory '/build/ngspice-sf-mirror/release-lib/src'
+Making all in man
+make[1]: Entering directory '/build/ngspice-sf-mirror/release-lib/man'
+Making all in man1
+make[2]: Entering directory '/build/ngspice-sf-mirror/release-lib/man/man1'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/build/ngspice-sf-mirror/release-lib/man/man1'
+make[2]: Entering directory '/build/ngspice-sf-mirror/release-lib/man'
+make[2]: Nothing to be done for 'all-am'.
+make[2]: Leaving directory '/build/ngspice-sf-mirror/release-lib/man'
+make[1]: Leaving directory '/build/ngspice-sf-mirror/release-lib/man'
+Making all in tests
+make[1]: Entering directory '/build/ngspice-sf-mirror/release-lib/tests'
+Making all in regression
+make[2]: Entering directory '/build/ngspice-sf-mirror/release-lib/tests/regression'
+Making all in lib-processing
+make[3]: Entering directory '/build/ngspice-sf-mirror/release-lib/tests/regression/lib-processing'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/build/ngspice-sf-mirror/release-lib/tests/regression/lib-processing'
+Making all in parser
+make[3]: Entering directory '/build/ngspice-sf-mirror/release-lib/tests/regression/parser'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/build/ngspice-sf-mirror/release-lib/tests/regression/parser'
+Making all in subckt-processing
+make[3]: Entering directory '/build/ngspice-sf-mirror/release-lib/tests/regression/subckt-processing'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/build/ngspice-sf-mirror/release-lib/tests/regression/subckt-processing'
+Making all in func
+make[3]: Entering directory '/build/ngspice-sf-mirror/release-lib/tests/regression/func'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/build/ngspice-sf-mirror/release-lib/tests/regression/func'
+Making all in model
+make[3]: Entering directory '/build/ngspice-sf-mirror/release-lib/tests/regression/model'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/build/ngspice-sf-mirror/release-lib/tests/regression/model'
+Making all in misc
+make[3]: Entering directory '/build/ngspice-sf-mirror/release-lib/tests/regression/misc'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/build/ngspice-sf-mirror/release-lib/tests/regression/misc'
+Making all in sens
+make[3]: Entering directory '/build/ngspice-sf-mirror/release-lib/tests/regression/sens'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/build/ngspice-sf-mirror/release-lib/tests/regression/sens'
+Making all in temper
+make[3]: Entering directory '/build/ngspice-sf-mirror/release-lib/tests/regression/temper'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/build/ngspice-sf-mirror/release-lib/tests/regression/temper'
+Making all in pipe
+make[3]: Entering directory '/build/ngspice-sf-mirror/release-lib/tests/regression/pipe'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/build/ngspice-sf-mirror/release-lib/tests/regression/pipe'
+Making all in pz
+make[3]: Entering directory '/build/ngspice-sf-mirror/release-lib/tests/regression/pz'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/build/ngspice-sf-mirror/release-lib/tests/regression/pz'
+make[3]: Entering directory '/build/ngspice-sf-mirror/release-lib/tests/regression'
+make[3]: Nothing to be done for 'all-am'.
+make[3]: Leaving directory '/build/ngspice-sf-mirror/release-lib/tests/regression'
+make[2]: Leaving directory '/build/ngspice-sf-mirror/release-lib/tests/regression'
+Making all in xspice
+make[2]: Entering directory '/build/ngspice-sf-mirror/release-lib/tests/xspice'
+Making all in digital
+make[3]: Entering directory '/build/ngspice-sf-mirror/release-lib/tests/xspice/digital'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/build/ngspice-sf-mirror/release-lib/tests/xspice/digital'
+make[3]: Entering directory '/build/ngspice-sf-mirror/release-lib/tests/xspice'
+make[3]: Nothing to be done for 'all-am'.
+make[3]: Leaving directory '/build/ngspice-sf-mirror/release-lib/tests/xspice'
+make[2]: Leaving directory '/build/ngspice-sf-mirror/release-lib/tests/xspice'
+Making all in bsim3
+make[2]: Entering directory '/build/ngspice-sf-mirror/release-lib/tests/bsim3'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/build/ngspice-sf-mirror/release-lib/tests/bsim3'
+Making all in bsim4
+make[2]: Entering directory '/build/ngspice-sf-mirror/release-lib/tests/bsim4'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/build/ngspice-sf-mirror/release-lib/tests/bsim4'
+Making all in bsimsoi
+make[2]: Entering directory '/build/ngspice-sf-mirror/release-lib/tests/bsimsoi'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/build/ngspice-sf-mirror/release-lib/tests/bsimsoi'
+Making all in hisim
+make[2]: Entering directory '/build/ngspice-sf-mirror/release-lib/tests/hisim'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/build/ngspice-sf-mirror/release-lib/tests/hisim'
+Making all in hicum2
+make[2]: Entering directory '/build/ngspice-sf-mirror/release-lib/tests/hicum2'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/build/ngspice-sf-mirror/release-lib/tests/hicum2'
+Making all in hisimhv1
+make[2]: Entering directory '/build/ngspice-sf-mirror/release-lib/tests/hisimhv1'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/build/ngspice-sf-mirror/release-lib/tests/hisimhv1'
+Making all in hisimhv2
+make[2]: Entering directory '/build/ngspice-sf-mirror/release-lib/tests/hisimhv2'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/build/ngspice-sf-mirror/release-lib/tests/hisimhv2'
+make[2]: Entering directory '/build/ngspice-sf-mirror/release-lib/tests'
+make[2]: Nothing to be done for 'all-am'.
+make[2]: Leaving directory '/build/ngspice-sf-mirror/release-lib/tests'
+make[1]: Leaving directory '/build/ngspice-sf-mirror/release-lib/tests'
+make[1]: Entering directory '/build/ngspice-sf-mirror/release-lib'
+make[1]: Nothing to be done for 'all-am'.
+make[1]: Leaving directory '/build/ngspice-sf-mirror/release-lib'
+=== Collecting library output files ===
+Could not locate libngspice wasm artifacts under release-lib/src
+Expected Emscripten to emit libngspice*.js and libngspice*.wasm for the shared-library build.
+src/.deps/conf.Po
+src/.deps/libngspice_la-conf.Plo
+src/.deps/libngspice_la-ngspice.Plo
+src/.deps/libngspice_la-sharedspice.Plo
+src/.deps/libspice_la-conf.Plo
+src/.deps/libspice_la-main.Plo
+src/.deps/libspice_la-ngspice.Plo
+src/.deps/libspice_la-tclspice.Plo
+src/.deps/makeidx.Po
+src/.deps/nghelp.Po
+src/.deps/ngmultidec.Po
+src/.deps/ngproc2mod.Po
+src/.deps/ngsconvert.Po
+src/.deps/ngspice-conf.Po
+src/.deps/ngspice-hist_info.Po
+src/.deps/ngspice-main.Po
+src/.deps/ngspice-ngspice.Po
+src/.deps/ngspice-winmain.Po
+src/.libs/libngspice.lai
+src/.libs/libngspice.so.0.0.15
+src/.libs/libngspice_la-conf.o
+src/.libs/libngspice_la-ngspice.o
+src/.libs/libngspice_la-sharedspice.o
+src/Makefile
+src/ciderlib/Makefile
+src/ciderlib/input/Makefile
+src/ciderlib/oned/Makefile
+src/ciderlib/support/Makefile
+src/ciderlib/twod/Makefile
+src/frontend/.deps/arg.Plo
+src/frontend/.deps/aspice.Plo
+src/frontend/.deps/breakp.Plo
+src/frontend/.deps/breakp2.Plo
+src/frontend/.deps/circuits.Plo
+src/frontend/.deps/com_ahelp.Plo
+src/frontend/.deps/com_alias.Plo
+src/frontend/.deps/com_asciiplot.Plo
+src/frontend/.deps/com_cdump.Plo
+src/frontend/.deps/com_chdir.Plo
+src/frontend/.deps/com_compose.Plo
+src/frontend/.deps/com_display.Plo
+src/frontend/.deps/com_dl.Plo
+src/frontend/.deps/com_dump.Plo
+src/frontend/.deps/com_echo.Plo
+src/frontend/.deps/com_fft.Plo
+src/frontend/.deps/com_fileio.Plo
+src/frontend/.deps/com_ghelp.Plo
+src/frontend/.deps/com_gnuplot.Plo
+src/frontend/.deps/com_hardcopy.Plo
+src/frontend/.deps/com_help.Plo
+src/frontend/.deps/com_history.Plo
+src/frontend/.deps/com_let.Plo
+src/frontend/.deps/com_measure2.Plo
+src/frontend/.deps/com_option.Plo
+src/frontend/.deps/com_plot.Plo
+src/frontend/.deps/com_rehash.Plo
+src/frontend/.deps/com_set.Plo
+src/frontend/.deps/com_setscale.Plo
+src/frontend/.deps/com_shell.Plo
+src/frontend/.deps/com_shift.Plo
+src/frontend/.deps/com_state.Plo
+src/frontend/.deps/com_strcmp.Plo
+src/frontend/.deps/com_sysinfo.Plo
+src/frontend/.deps/com_unset.Plo
+src/frontend/.deps/com_wr_ic.Plo
+src/frontend/.deps/commands.Plo
+src/frontend/.deps/control.Plo
+src/frontend/.deps/cpitf.Plo
+src/frontend/.deps/define.Plo
+src/frontend/.deps/device.Plo
+src/frontend/.deps/diff.Plo
+src/frontend/.deps/dimens.Plo
+src/frontend/.deps/display.Plo
+src/frontend/.deps/dotcards.Plo
+src/frontend/.deps/dvec.Plo
+src/frontend/.deps/error.Plo
+src/frontend/.deps/evaluate.Plo
+src/frontend/.deps/fourier.Plo
+src/frontend/.deps/ftesopt.Plo
+src/frontend/.deps/gens.Plo
+src/frontend/.deps/get_avail_mem_size.Plo
+src/frontend/.deps/get_phys_mem_size.Plo
+src/frontend/.deps/get_resident_set_size.Plo
+src/frontend/.deps/hcomp.Plo
+src/frontend/.deps/hpgl.Plo
+src/frontend/.deps/init.Plo
+src/frontend/.deps/inp.Plo
+src/frontend/.deps/inpc_probe.Plo
+src/frontend/.deps/inpcom.Plo
+src/frontend/.deps/inpcompat.Plo
+src/frontend/.deps/interp.Plo
+src/frontend/.deps/inventory.Plo
+src/frontend/.deps/linear.Plo
+src/frontend/.deps/logicexp.Plo
+src/frontend/.deps/measure.Plo
+src/frontend/.deps/misccoms.Plo
+src/frontend/.deps/miscvars.Plo
+src/frontend/.deps/mw_coms.Plo
+src/frontend/.deps/newcoms.Plo
+src/frontend/.deps/nutinp.Plo
+src/frontend/.deps/nutmegif.Plo
+src/frontend/.deps/options.Plo
+src/frontend/.deps/outitf.Plo
+src/frontend/.deps/parse-bison.Plo
+src/frontend/.deps/parse.Plo
+src/frontend/.deps/points.Plo
+src/frontend/.deps/postcoms.Plo
+src/frontend/.deps/postsc.Plo
+src/frontend/.deps/quote.Plo
+src/frontend/.deps/rawfile.Plo
+src/frontend/.deps/resource.Plo
+src/frontend/.deps/runcoms.Plo
+src/frontend/.deps/runcoms2.Plo
+src/frontend/.deps/shyu.Plo
+src/frontend/.deps/signal_handler.Plo
+src/frontend/.deps/spec.Plo
+src/frontend/.deps/spiceif.Plo
+src/frontend/.deps/streams.Plo
+src/frontend/.deps/subckt.Plo
+src/frontend/.deps/svg.Plo
+src/frontend/.deps/terminal.Plo
+src/frontend/.deps/typesdef.Plo
+src/frontend/.deps/udevices.Plo
+src/frontend/.deps/variable.Plo
+src/frontend/.deps/vectors.Plo
+src/frontend/.deps/where.Plo
+src/frontend/.libs/arg.o
+src/frontend/.libs/aspice.o
+src/frontend/.libs/breakp.o
+src/frontend/.libs/breakp2.o
+src/frontend/.libs/circuits.o
+src/frontend/.libs/com_ahelp.o
+src/frontend/.libs/com_alias.o
+src/frontend/.libs/com_asciiplot.o
+src/frontend/.libs/com_cdump.o
+src/frontend/.libs/com_chdir.o
+src/frontend/.libs/com_compose.o
+src/frontend/.libs/com_display.o
+src/frontend/.libs/com_dl.o
+src/frontend/.libs/com_dump.o
+src/frontend/.libs/com_echo.o
+src/frontend/.libs/com_fft.o
+src/frontend/.libs/com_fileio.o
+src/frontend/.libs/com_ghelp.o
+src/frontend/.libs/com_gnuplot.o
+src/frontend/.libs/com_hardcopy.o
+src/frontend/.libs/com_help.o
+src/frontend/.libs/com_history.o
+src/frontend/.libs/com_let.o
+src/frontend/.libs/com_measure2.o
+src/frontend/.libs/com_option.o
+src/frontend/.libs/com_plot.o
+src/frontend/.libs/com_rehash.o
+src/frontend/.libs/com_set.o
+src/frontend/.libs/com_setscale.o
+src/frontend/.libs/com_shell.o
+src/frontend/.libs/com_shift.o
+src/frontend/.libs/com_state.o
+src/frontend/.libs/com_strcmp.o
+src/frontend/.libs/com_sysinfo.o
+src/frontend/.libs/com_unset.o
+src/frontend/.libs/com_wr_ic.o
+src/frontend/.libs/commands.o
+src/frontend/.libs/control.o
+src/frontend/.libs/cpitf.o
+src/frontend/.libs/define.o
+src/frontend/.libs/device.o
+src/frontend/.libs/diff.o
+src/frontend/.libs/dimens.o
+src/frontend/.libs/display.o
+src/frontend/.libs/dotcards.o
+src/frontend/.libs/dvec.o
+src/frontend/.libs/error.o
+src/frontend/.libs/evaluate.o
+src/frontend/.libs/fourier.o
+src/frontend/.libs/ftesopt.o
+src/frontend/.libs/gens.o
+src/frontend/.libs/get_avail_mem_size.o
+src/frontend/.libs/get_phys_mem_size.o
+src/frontend/.libs/get_resident_set_size.o
+src/frontend/.libs/hcomp.o
+src/frontend/.libs/hpgl.o
+src/frontend/.libs/init.o
+src/frontend/.libs/inp.o
+src/frontend/.libs/inpc_probe.o
+src/frontend/.libs/inpcom.o
+src/frontend/.libs/inpcompat.o
+src/frontend/.libs/interp.o
+src/frontend/.libs/inventory.o
+src/frontend/.libs/libfte.a
+src/frontend/.libs/linear.o
+src/frontend/.libs/logicexp.o
+src/frontend/.libs/measure.o
+src/frontend/.libs/misccoms.o
+src/frontend/.libs/miscvars.o
+src/frontend/.libs/mw_coms.o
+src/frontend/.libs/newcoms.o
+src/frontend/.libs/nutinp.o
+src/frontend/.libs/nutmegif.o
+src/frontend/.libs/options.o
+src/frontend/.libs/outitf.o
+src/frontend/.libs/parse-bison.o
+src/frontend/.libs/parse.o
+src/frontend/.libs/points.o
+src/frontend/.libs/postcoms.o
+src/frontend/.libs/postsc.o
+src/frontend/.libs/quote.o
+src/frontend/.libs/rawfile.o
+src/frontend/.libs/resource.o
+src/frontend/.libs/runcoms.o
+src/frontend/.libs/runcoms2.o
+src/frontend/.libs/shyu.o
+src/frontend/.libs/signal_handler.o
+src/frontend/.libs/spec.o
+src/frontend/.libs/spiceif.o
+src/frontend/.libs/streams.o
+src/frontend/.libs/subckt.o
+src/frontend/.libs/svg.o
+src/frontend/.libs/terminal.o
+src/frontend/.libs/typesdef.o
+src/frontend/.libs/udevices.o
+src/frontend/.libs/variable.o
+src/frontend/.libs/vectors.o
+src/frontend/.libs/where.o
+src/frontend/Makefile
+src/frontend/arg.lo
+src/frontend/aspice.lo
+src/frontend/breakp.lo
+src/frontend/breakp2.lo
+src/frontend/circuits.lo
+src/frontend/com_ahelp.lo
+src/frontend/com_alias.lo
+src/frontend/com_asciiplot.lo
+src/frontend/com_cdump.lo
+src/frontend/com_chdir.lo
+src/frontend/com_compose.lo
+src/frontend/com_display.lo
+src/frontend/com_dl.lo
+src/frontend/com_dump.lo
+src/frontend/com_echo.lo
+src/frontend/com_fft.lo
+src/frontend/com_fileio.lo
+src/frontend/com_ghelp.lo
+src/frontend/com_gnuplot.lo
+src/frontend/com_hardcopy.lo
+src/frontend/com_help.lo
+src/frontend/com_history.lo
+src/frontend/com_let.lo
+src/frontend/com_measure2.lo
+src/frontend/com_option.lo
+src/frontend/com_plot.lo
+src/frontend/com_rehash.lo
+src/frontend/com_set.lo
+src/frontend/com_setscale.lo
+src/frontend/com_shell.lo
+src/frontend/com_shift.lo
+src/frontend/com_state.lo
+src/frontend/com_strcmp.lo
+src/frontend/com_sysinfo.lo
+src/frontend/com_unset.lo
+src/frontend/com_wr_ic.lo
+src/frontend/commands.lo
+src/frontend/control.lo
+src/frontend/cpitf.lo
+src/frontend/define.lo
+src/frontend/device.lo
+src/frontend/diff.lo
+src/frontend/dimens.lo
+src/frontend/display.lo
+src/frontend/dotcards.lo
+src/frontend/dvec.lo
+src/frontend/error.lo
+src/frontend/evaluate.lo
+src/frontend/fourier.lo
+src/frontend/ftesopt.lo
+src/frontend/gens.lo
+src/frontend/get_avail_mem_size.lo
+src/frontend/get_phys_mem_size.lo
+src/frontend/get_resident_set_size.lo
+src/frontend/hcomp.lo
+src/frontend/help/Makefile
+src/frontend/hpgl.lo
+src/frontend/init.lo
+src/frontend/inp.lo
+src/frontend/inpc_probe.lo
+src/frontend/inpcom.lo
+src/frontend/inpcompat.lo
+src/frontend/interp.lo
+src/frontend/inventory.lo
+src/frontend/libfte.la
+src/frontend/linear.lo
+src/frontend/logicexp.lo
+src/frontend/measure.lo
+src/frontend/misccoms.lo
+src/frontend/miscvars.lo
+src/frontend/mw_coms.lo
+src/frontend/newcoms.lo
+src/frontend/numparam/Makefile
+src/frontend/numparam/libnumparam.la
+src/frontend/numparam/mystring.lo
+src/frontend/numparam/spicenum.lo
+src/frontend/numparam/xpressn.lo
+src/frontend/nutinp.lo
+src/frontend/nutmegif.lo
+src/frontend/options.lo
+src/frontend/outitf.lo
+src/frontend/parse-bison.c
+src/frontend/parse-bison.h
+src/frontend/parse-bison.lo
+src/frontend/parse.lo
+src/frontend/parser/Makefile
+src/frontend/parser/backq.lo
+src/frontend/parser/complete.lo
+src/frontend/parser/cshpar.lo
+src/frontend/parser/glob.lo
+src/frontend/parser/input.lo
+src/frontend/parser/lexical.lo
+src/frontend/parser/libparser.la
+src/frontend/parser/numparse.lo
+src/frontend/parser/std.lo
+src/frontend/parser/unixcom.lo
+src/frontend/plotting/Makefile
+src/frontend/plotting/agraf.lo
+src/frontend/plotting/clip.lo
+src/frontend/plotting/gnuplot.lo
+src/frontend/plotting/graf.lo
+src/frontend/plotting/graphdb.lo
+src/frontend/plotting/grid.lo
+src/frontend/plotting/libplotting.la
+src/frontend/plotting/plot5.lo
+src/frontend/plotting/plotcurv.lo
+src/frontend/plotting/plotit.lo
+src/frontend/plotting/plotting.lo
+src/frontend/plotting/pvec.lo
+src/frontend/points.lo
+src/frontend/postcoms.lo
+src/frontend/postsc.lo
+src/frontend/quote.lo
+src/frontend/rawfile.lo
+src/frontend/resource.lo
+src/frontend/runcoms.lo
+src/frontend/runcoms2.lo
+src/frontend/shyu.lo
+src/frontend/signal_handler.lo
+src/frontend/spec.lo
+src/frontend/spiceif.lo
+src/frontend/streams.lo
+src/frontend/subckt.lo
+src/frontend/svg.lo
+src/frontend/terminal.lo
+src/frontend/trannoise/1-f-code.lo
+src/frontend/trannoise/FastNorm3.lo
+src/frontend/trannoise/Makefile
+src/frontend/trannoise/libtrannoise.la
+src/frontend/trannoise/wallace.lo
+src/frontend/typesdef.lo
+src/frontend/udevices.lo
+src/frontend/variable.lo
+src/frontend/vectors.lo
+src/frontend/wdisp/Makefile
+src/frontend/wdisp/libwindisp.la
+src/frontend/wdisp/wincolor.lo
+src/frontend/wdisp/windisp.lo
+src/frontend/wdisp/winprint.lo
+src/frontend/where.lo
+src/include/ngspice/Makefile
+src/include/ngspice/config.h
+src/include/ngspice/stamp-h1
+src/libngspice.la
+src/libngspice_la-conf.lo
+src/libngspice_la-ngspice.lo
+src/libngspice_la-sharedspice.lo
+src/maths/KLU/Makefile
+src/maths/KLU/libKLU.la
+src/maths/KLU/libKLU_complex.la
+src/maths/KLU/libKLU_complex_la-klu.lo
+src/maths/KLU/libKLU_complex_la-klu_diagnostics.lo
+src/maths/KLU/libKLU_complex_la-klu_dump.lo
+src/maths/KLU/libKLU_complex_la-klu_extract.lo
+src/maths/KLU/libKLU_complex_la-klu_factor.lo
+src/maths/KLU/libKLU_complex_la-klu_free_numeric.lo
+src/maths/KLU/libKLU_complex_la-klu_kernel.lo
+src/maths/KLU/libKLU_complex_la-klu_multiply.lo
+src/maths/KLU/libKLU_complex_la-klu_refactor.lo
+src/maths/KLU/libKLU_complex_la-klu_scale.lo
+src/maths/KLU/libKLU_complex_la-klu_solve.lo
+src/maths/KLU/libKLU_complex_la-klu_sort.lo
+src/maths/KLU/libKLU_complex_la-klu_tsolve.lo
+src/maths/KLU/libKLU_complex_la-klu_utils.lo
+src/maths/KLU/libKLU_la-amd_1.lo
+src/maths/KLU/libKLU_la-amd_2.lo
+src/maths/KLU/libKLU_la-amd_aat.lo
+src/maths/KLU/libKLU_la-amd_control.lo
+src/maths/KLU/libKLU_la-amd_defaults.lo
+src/maths/KLU/libKLU_la-amd_dump.lo
+src/maths/KLU/libKLU_la-amd_global.lo
+src/maths/KLU/libKLU_la-amd_info.lo
+src/maths/KLU/libKLU_la-amd_order.lo
+src/maths/KLU/libKLU_la-amd_post_tree.lo
+src/maths/KLU/libKLU_la-amd_postorder.lo
+src/maths/KLU/libKLU_la-amd_preprocess.lo
+src/maths/KLU/libKLU_la-amd_valid.lo
+src/maths/KLU/libKLU_la-btf_maxtrans.lo
+src/maths/KLU/libKLU_la-btf_order.lo
+src/maths/KLU/libKLU_la-btf_strongcomp.lo
+src/maths/KLU/libKLU_la-colamd.lo
+src/maths/KLU/libKLU_la-colamd_global.lo
+src/maths/KLU/libKLU_la-klu_analyze.lo
+src/maths/KLU/libKLU_la-klu_analyze_given.lo
+src/maths/KLU/libKLU_la-klu_defaults.lo
+src/maths/KLU/libKLU_la-klu_free_symbolic.lo
+src/maths/KLU/libKLU_la-klu_memory.lo
+src/maths/KLU/libKLU_la-klusmp.lo
+src/maths/KLU/libKLU_real.la
+src/maths/KLU/libKLU_real_la-klu.lo
+src/maths/KLU/libKLU_real_la-klu_diagnostics.lo
+src/maths/KLU/libKLU_real_la-klu_dump.lo
+src/maths/KLU/libKLU_real_la-klu_extract.lo
+src/maths/KLU/libKLU_real_la-klu_factor.lo
+src/maths/KLU/libKLU_real_la-klu_free_numeric.lo
+src/maths/KLU/libKLU_real_la-klu_kernel.lo
+src/maths/KLU/libKLU_real_la-klu_multiply.lo
+src/maths/KLU/libKLU_real_la-klu_refactor.lo
+src/maths/KLU/libKLU_real_la-klu_scale.lo
+src/maths/KLU/libKLU_real_la-klu_solve.lo
+src/maths/KLU/libKLU_real_la-klu_sort.lo
+src/maths/KLU/libKLU_real_la-klu_tsolve.lo
+src/maths/KLU/libKLU_real_la-klu_utils.lo
+src/maths/Makefile
+src/maths/cmaths/Makefile
+src/maths/cmaths/cmath1.lo
+src/maths/cmaths/cmath2.lo
+src/maths/cmaths/cmath3.lo
+src/maths/cmaths/cmath4.lo
+src/maths/cmaths/libcmaths.la
+src/maths/dense/Makefile
+src/maths/dense/dense.lo
+src/maths/dense/libdense.la
+src/maths/deriv/Makefile
+src/maths/deriv/atander.lo
+src/maths/deriv/cosderiv.lo
+src/maths/deriv/cubeder.lo
+src/maths/deriv/divderiv.lo
+src/maths/deriv/equalder.lo
+src/maths/deriv/expderiv.lo
+src/maths/deriv/invderiv.lo
+src/maths/deriv/libderiv.la
+src/maths/deriv/multder.lo
+src/maths/deriv/plusder.lo
+src/maths/deriv/powderiv.lo
+src/maths/deriv/sqrtder.lo
+src/maths/deriv/tanderiv.lo
+src/maths/deriv/timesder.lo
+src/maths/fft/Makefile
+src/maths/fft/fftext.lo
+src/maths/fft/fftlib.lo
+src/maths/fft/libmathfft.la
+src/maths/fft/matlib.lo
+src/maths/misc/Makefile
+src/maths/misc/accuracy.lo
+src/maths/misc/bernoull.lo
+src/maths/misc/equality.lo
+src/maths/misc/isinf.lo
+src/maths/misc/isnan.lo
+src/maths/misc/libmathmisc.la
+src/maths/misc/logb.lo
+src/maths/misc/norm.lo
+src/maths/misc/randnumb.lo
+src/maths/misc/scalb.lo
+src/maths/ni/Makefile
+src/maths/ni/libni.la
+src/maths/ni/niaciter.lo
+src/maths/ni/nicomcof.lo
+src/maths/ni/niconv.lo
+src/maths/ni/nidest.lo
+src/maths/ni/niditer.lo
+src/maths/ni/niinit.lo
+src/maths/ni/niinteg.lo
+src/maths/ni/niiter.lo
+src/maths/ni/niniter.lo
+src/maths/ni/nipred.lo
+src/maths/ni/nipzmeth.lo
+src/maths/ni/nireinit.lo
+src/maths/ni/nisenre.lo
+src/maths/poly/Makefile
+src/maths/poly/interpolate.lo
+src/maths/poly/libpoly.la
+src/maths/poly/polyderiv.lo
+src/maths/poly/polyeval.lo
+src/maths/poly/polyfit.lo
+src/maths/sparse/Makefile
+src/maths/sparse/libsparse.la
+src/maths/sparse/spalloc.lo
+src/maths/sparse/spbuild.lo
+src/maths/sparse/spextra.lo
+src/maths/sparse/spfactor.lo
+src/maths/sparse/spoutput.lo
+src/maths/sparse/spsolve.lo
+src/maths/sparse/sputils.lo
+src/misc/.deps/alloc.Plo
+src/misc/.deps/dstring.Plo
+src/misc/.deps/dup2.Plo
+src/misc/.deps/getopt_long_bsd.Plo
+src/misc/.deps/hash.Plo
+src/misc/.deps/ivars.Plo
+src/misc/.deps/misc_time.Plo
+src/misc/.deps/mktemp.Plo
+src/misc/.deps/printnum.Plo
+src/misc/.deps/string.Plo
+src/misc/.deps/tilde.Plo
+src/misc/.deps/util.Plo
+src/misc/.deps/wlist.Plo
+src/misc/.libs/alloc.o
+src/misc/.libs/dstring.o
+src/misc/.libs/dup2.o
+src/misc/.libs/getopt_long_bsd.o
+src/misc/.libs/hash.o
+src/misc/.libs/ivars.o
+src/misc/.libs/libmisc.a
+src/misc/.libs/misc_time.o
+src/misc/.libs/mktemp.o
+src/misc/.libs/printnum.o
+src/misc/.libs/string.o
+src/misc/.libs/tilde.o
+src/misc/.libs/util.o
+src/misc/.libs/wlist.o
+src/misc/Makefile
+src/misc/alloc.lo
+src/misc/dstring.lo
+src/misc/dup2.lo
+src/misc/getopt_long_bsd.lo
+src/misc/hash.lo
+src/misc/ivars.lo
+src/misc/libmisc.la
+src/misc/misc_time.lo
+src/misc/mktemp.lo
+src/misc/printnum.lo
+src/misc/string.lo
+src/misc/tilde.lo
+src/misc/util.lo
+src/misc/wlist.lo
+src/osdi/.deps/osdiacld.Plo
+src/osdi/.deps/osdicallbacks.Plo
+src/osdi/.deps/osdiinit.Plo
+src/osdi/.deps/osdiload.Plo
+src/osdi/.deps/osdinoise.Plo
+src/osdi/.deps/osdiparam.Plo
+src/osdi/.deps/osdipzld.Plo
+src/osdi/.deps/osdiregistry.Plo
+src/osdi/.deps/osdisetup.Plo
+src/osdi/.deps/osditrunc.Plo
+src/osdi/.libs/libosdi.a
+src/osdi/.libs/osdiacld.o
+src/osdi/.libs/osdicallbacks.o
+src/osdi/.libs/osdiinit.o
+src/osdi/.libs/osdiload.o
+src/osdi/.libs/osdinoise.o
+src/osdi/.libs/osdiparam.o
+src/osdi/.libs/osdipzld.o
+src/osdi/.libs/osdiregistry.o
+src/osdi/.libs/osdisetup.o
+src/osdi/.libs/osditrunc.o
+src/osdi/Makefile
+src/osdi/libosdi.la
+src/osdi/osdiacld.lo
+src/osdi/osdicallbacks.lo
+src/osdi/osdiinit.lo
+src/osdi/osdiload.lo
+src/osdi/osdinoise.lo
+src/osdi/osdiparam.lo
+src/osdi/osdipzld.lo
+src/osdi/osdiregistry.lo
+src/osdi/osdisetup.lo
+src/osdi/osditrunc.lo
+src/spicelib/Makefile
+src/spicelib/analysis/Makefile
+src/spicelib/analysis/acan.lo
+src/spicelib/analysis/acaskq.lo
+src/spicelib/analysis/acsetp.lo
+src/spicelib/analysis/analysis.lo
+src/spicelib/analysis/cktacct.lo
+src/spicelib/analysis/cktacdum.lo
+src/spicelib/analysis/cktaskaq.lo
+src/spicelib/analysis/cktasknq.lo
+src/spicelib/analysis/cktbkdum.lo
+src/spicelib/analysis/cktclrbk.lo
+src/spicelib/analysis/cktdelt.lo
+src/spicelib/analysis/cktdest.lo
+src/spicelib/analysis/cktdisto.lo
+src/spicelib/analysis/cktdlti.lo
+src/spicelib/analysis/cktdltm.lo
+src/spicelib/analysis/cktdltn.lo
+src/spicelib/analysis/cktdojob.lo
+src/spicelib/analysis/cktdump.lo
+src/spicelib/analysis/cktfbran.lo
+src/spicelib/analysis/cktfnda.lo
+src/spicelib/analysis/cktfndm.lo
+src/spicelib/analysis/cktfnode.lo
+src/spicelib/analysis/cktftask.lo
+src/spicelib/analysis/cktgrnd.lo
+src/spicelib/analysis/ckti2nod.lo
+src/spicelib/analysis/cktic.lo
+src/spicelib/analysis/cktlnkeq.lo
+src/spicelib/analysis/cktload.lo
+src/spicelib/analysis/cktmapn.lo
+src/spicelib/analysis/cktmask.lo
+src/spicelib/analysis/cktmcrt.lo
+src/spicelib/analysis/cktmkcur.lo
+src/spicelib/analysis/cktmknod.lo
+src/spicelib/analysis/cktmkvol.lo
+src/spicelib/analysis/cktmpar.lo
+src/spicelib/analysis/cktnames.lo
+src/spicelib/analysis/cktncdump.lo
+src/spicelib/analysis/cktnewan.lo
+src/spicelib/analysis/cktneweq.lo
+src/spicelib/analysis/cktnewn.lo
+src/spicelib/analysis/cktnodn.lo
+src/spicelib/analysis/cktnoise.lo
+src/spicelib/analysis/cktntask.lo
+src/spicelib/analysis/cktnum2n.lo
+src/spicelib/analysis/cktop.lo
+src/spicelib/analysis/cktparam.lo
+src/spicelib/analysis/cktpmnam.lo
+src/spicelib/analysis/cktpname.lo
+src/spicelib/analysis/cktpzld.lo
+src/spicelib/analysis/cktpzset.lo
+src/spicelib/analysis/cktpzstr.lo
+src/spicelib/analysis/cktsens.lo
+src/spicelib/analysis/cktsetap.lo
+src/spicelib/analysis/cktsetbk.lo
+src/spicelib/analysis/cktsetnp.lo
+src/spicelib/analysis/cktsetup.lo
+src/spicelib/analysis/cktsgen.lo
+src/spicelib/analysis/cktsopt.lo
+src/spicelib/analysis/cktspdum.lo
+src/spicelib/analysis/cktspnoise.lo
+src/spicelib/analysis/ckttemp.lo
+src/spicelib/analysis/cktterr.lo
+src/spicelib/analysis/ckttroub.lo
+src/spicelib/analysis/ckttrunc.lo
+src/spicelib/analysis/ckttyplk.lo
+src/spicelib/analysis/daskq.lo
+src/spicelib/analysis/dcoaskq.lo
+src/spicelib/analysis/dcop.lo
+src/spicelib/analysis/dcosetp.lo
+src/spicelib/analysis/dctaskq.lo
+src/spicelib/analysis/dctran.lo
+src/spicelib/analysis/dctrcurv.lo
+src/spicelib/analysis/dctsetp.lo
+src/spicelib/analysis/distoan.lo
+src/spicelib/analysis/dkerproc.lo
+src/spicelib/analysis/dloadfns.lo
+src/spicelib/analysis/dsetparm.lo
+src/spicelib/analysis/libckt.la
+src/spicelib/analysis/naskq.lo
+src/spicelib/analysis/nevalsrc.lo
+src/spicelib/analysis/ninteg.lo
+src/spicelib/analysis/noisean.lo
+src/spicelib/analysis/noisesp.lo
+src/spicelib/analysis/nsetparm.lo
+src/spicelib/analysis/optran.lo
+src/spicelib/analysis/pzan.lo
+src/spicelib/analysis/pzaskq.lo
+src/spicelib/analysis/pzsetp.lo
+src/spicelib/analysis/sensaskq.lo
+src/spicelib/analysis/senssetp.lo
+src/spicelib/analysis/span.lo
+src/spicelib/analysis/spaskq.lo
+src/spicelib/analysis/spsetp.lo
+src/spicelib/analysis/tfanal.lo
+src/spicelib/analysis/tfaskq.lo
+src/spicelib/analysis/tfsetp.lo
+src/spicelib/analysis/tranaskq.lo
+src/spicelib/analysis/traninit.lo
+src/spicelib/analysis/transetp.lo
+src/spicelib/devices/Makefile
+src/spicelib/devices/cktaccept.lo
+src/spicelib/devices/cktask.lo
+src/spicelib/devices/cktbindnode.lo
+src/spicelib/devices/cktcrte.lo
+src/spicelib/devices/cktfinddev.lo
+src/spicelib/devices/cktinit.lo
+src/spicelib/devices/cktsoachk.lo
+src/spicelib/devices/dev.lo
+src/spicelib/devices/devsup.lo
+src/spicelib/devices/libdev.la
+src/spicelib/devices/limit.lo
+src/spicelib/parser/Makefile
+src/spicelib/parser/ifeval.lo
+src/spicelib/parser/ifnewuid.lo
+src/spicelib/parser/inp2b.lo
+src/spicelib/parser/inp2c.lo
+src/spicelib/parser/inp2d.lo
+src/spicelib/parser/inp2dot.lo
+src/spicelib/parser/inp2e.lo
+src/spicelib/parser/inp2f.lo
+src/spicelib/parser/inp2g.lo
+src/spicelib/parser/inp2h.lo
+src/spicelib/parser/inp2i.lo
+src/spicelib/parser/inp2j.lo
+src/spicelib/parser/inp2k.lo
+src/spicelib/parser/inp2l.lo
+src/spicelib/parser/inp2m.lo
+src/spicelib/parser/inp2n.lo
+src/spicelib/parser/inp2o.lo
+src/spicelib/parser/inp2p.lo
+src/spicelib/parser/inp2q.lo
+src/spicelib/parser/inp2r.lo
+src/spicelib/parser/inp2s.lo
+src/spicelib/parser/inp2t.lo
+src/spicelib/parser/inp2u.lo
+src/spicelib/parser/inp2v.lo
+src/spicelib/parser/inp2w.lo
+src/spicelib/parser/inp2y.lo
+src/spicelib/parser/inp2z.lo
+src/spicelib/parser/inpaname.lo
+src/spicelib/parser/inpapnam.lo
+src/spicelib/parser/inpcfix.lo
+src/spicelib/parser/inpdomod.lo
+src/spicelib/parser/inpdoopt.lo
+src/spicelib/parser/inpdpar.lo
+src/spicelib/parser/inperrc.lo
+src/spicelib/parser/inperror.lo
+src/spicelib/parser/inpeval.lo
+src/spicelib/parser/inpfindl.lo
+src/spicelib/parser/inpfindv.lo
+src/spicelib/parser/inpgmod.lo
+src/spicelib/parser/inpgstr.lo
+src/spicelib/parser/inpgtitl.lo
+src/spicelib/parser/inpgtok.lo
+src/spicelib/parser/inpgval.lo
+src/spicelib/parser/inpkmods.lo
+src/spicelib/parser/inplist.lo
+src/spicelib/parser/inplkmod.lo
+src/spicelib/parser/inpmkmod.lo
+src/spicelib/parser/inpmktmp.lo
+src/spicelib/parser/inppas1.lo
+src/spicelib/parser/inppas2.lo
+src/spicelib/parser/inppas3.lo
+src/spicelib/parser/inppas4.lo
+src/spicelib/parser/inppname.lo
+src/spicelib/parser/inpptree-parser.c
+src/spicelib/parser/inpptree-parser.h
+src/spicelib/parser/inpptree-parser.lo
+src/spicelib/parser/inpptree.lo
+src/spicelib/parser/inpsymt.lo
+src/spicelib/parser/inptyplk.lo
+src/spicelib/parser/libinp.la
+src/spicelib/parser/ptfuncs.lo
+src/spicelib/parser/sperror.lo
+src/spinit
+src/xspice/Makefile
+src/xspice/cm/Makefile
+src/xspice/cm/cm.lo
+src/xspice/cm/cmevt.lo
+src/xspice/cm/cmexport.lo
+src/xspice/cm/cmmeters.lo
+src/xspice/cm/cmutil.lo
+src/xspice/cm/libcmxsp.la
+src/xspice/cmpp/Makefile
+src/xspice/cmpp/cmpp
+src/xspice/cmpp/file_buffer.o
+src/xspice/cmpp/ifs_lex.c
+src/xspice/cmpp/ifs_lex.o
+src/xspice/cmpp/ifs_yacc.c
+src/xspice/cmpp/ifs_yacc.h
+src/xspice/cmpp/ifs_yacc.o
+src/xspice/cmpp/main.o
+src/xspice/cmpp/mod_lex.c
+src/xspice/cmpp/mod_lex.o
+src/xspice/cmpp/mod_yacc.c
+src/xspice/cmpp/mod_yacc.h
+src/xspice/cmpp/mod_yacc.o
+src/xspice/cmpp/pp_ifs.o
+src/xspice/cmpp/pp_lst.o
+src/xspice/cmpp/pp_mod.o
+src/xspice/cmpp/read_ifs.o
+src/xspice/cmpp/util.o
+src/xspice/cmpp/writ_ifs.o
+src/xspice/enh/Makefile
+src/xspice/enh/enh.lo
+src/xspice/enh/enhtrans.lo
+src/xspice/enh/libenhxsp.la
+src/xspice/evt/Makefile
+src/xspice/evt/evtaccept.lo
+src/xspice/evt/evtbackup.lo
+src/xspice/evt/evtcall_hybrids.lo
+src/xspice/evt/evtcheck_nodes.lo
+src/xspice/evt/evtdeque.lo
+src/xspice/evt/evtdest.lo
+src/xspice/evt/evtdump.lo
+src/xspice/evt/evtinit.lo
+src/xspice/evt/evtiter.lo
+src/xspice/evt/evtload.lo
+src/xspice/evt/evtnext_time.lo
+src/xspice/evt/evtnode_copy.lo
+src/xspice/evt/evtop.lo
+src/xspice/evt/evtplot.lo
+src/xspice/evt/evtprint.lo
+src/xspice/evt/evtqueue.lo
+src/xspice/evt/evtsetup.lo
+src/xspice/evt/evtshared.lo
+src/xspice/evt/evttermi.lo
+src/xspice/evt/libevtxsp.la
+src/xspice/icm/GNUmakefile
+src/xspice/icm/dstring.o
+src/xspice/icm/makedefs
+src/xspice/icm/msline_common.o
+src/xspice/icm/tline_common.o
+src/xspice/idn/Makefile
+src/xspice/idn/idndig.lo
+src/xspice/idn/libidnxsp.la
+src/xspice/mif/Makefile
+src/xspice/mif/libmifxsp.la
+src/xspice/mif/mif.lo
+src/xspice/mif/mif_inp2.lo
+src/xspice/mif/mifask.lo
+src/xspice/mif/mifbindCSC.lo
+src/xspice/mif/mifconvt.lo
+src/xspice/mif/mifdelete.lo
+src/xspice/mif/mifdestr.lo
+src/xspice/mif/mifgetmod.lo
+src/xspice/mif/mifgetvalue.lo
+src/xspice/mif/mifload.lo
+src/xspice/mif/mifmask.lo
+src/xspice/mif/mifmdelete.lo
+src/xspice/mif/mifmpara.lo
+src/xspice/mif/mifsetup.lo
+src/xspice/mif/miftrunc.lo
+src/xspice/mif/mifutil.lo
+src/xspice/verilog/Makefile
+src/xspice/verilog/ivlng.la
+src/xspice/verilog/ivlng_la-icarus_shim.lo
+src/xspice/verilog/ivlng_la-icarus_shim.o
+src/xspice/verilog/ivlngvpi.la
+src/xspice/verilog/ivlngvpi_la-vpi.lo
+src/xspice/verilog/ivlngvpi_la-vpi.o
+src/xspice/vhdl/Makefile

@@ -3,22 +3,23 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>ngspice WASM Playground</title>
+	<title>ngspice Shared Library Demo</title>
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 	<style>
 		:root {
-			--bg: #0f1629;
-			--panel: rgba(255, 255, 255, 0.06);
-			--panel-strong: rgba(255, 255, 255, 0.12);
-			--text: #e9edf5;
-			--muted: #9eb1d0;
-			--accent: #36d6ae;
-			--accent-2: #7fd7ff;
-			--danger: #ff7a7a;
+			--bg: #f4efe5;
+			--panel: rgba(255, 255, 255, 0.78);
+			--panel-strong: rgba(255, 255, 255, 0.94);
+			--text: #1e2230;
+			--muted: #59627a;
+			--accent: #0f8a5f;
+			--accent-2: #f0ab3a;
+			--danger: #b64747;
+			--track: #dae3d9;
 			--mono: 'JetBrains Mono', monospace;
-			--sans: 'Space Grotesk', system-ui, -apple-system, sans-serif;
-			--shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+			--sans: 'Space Grotesk', system-ui, sans-serif;
+			--shadow: 0 24px 60px rgba(40, 38, 27, 0.15);
 		}
 
 		* { box-sizing: border-box; }
@@ -28,204 +29,218 @@
 			min-height: 100vh;
 			color: var(--text);
 			font-family: var(--sans);
-			background: radial-gradient(circle at 20% 20%, rgba(54, 214, 174, 0.12), transparent 35%),
-									radial-gradient(circle at 80% 0%, rgba(127, 215, 255, 0.12), transparent 40%),
-									linear-gradient(135deg, #0c1221 0%, #0b0f1c 100%);
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			padding: 32px 18px 42px;
+			background:
+				radial-gradient(circle at 15% 20%, rgba(15, 138, 95, 0.12), transparent 30%),
+				radial-gradient(circle at 85% 0%, rgba(240, 171, 58, 0.18), transparent 34%),
+				linear-gradient(135deg, #efe8dc 0%, #f7f3eb 46%, #ece4d3 100%);
+			padding: 28px 18px 40px;
 		}
 
 		.shell {
-			width: min(1200px, 100%);
-			height: 90vh;
-			max-height: 90vh;
-			display: flex;
-			flex-direction: column;
-			overflow: hidden;
+			width: min(1220px, 100%);
+			margin: 0 auto;
 			background: var(--panel);
-			border: 1px solid rgba(255, 255, 255, 0.06);
-			border-radius: 18px;
+			border: 1px solid rgba(30, 34, 48, 0.08);
+			border-radius: 24px;
 			padding: 26px;
 			box-shadow: var(--shadow);
-			backdrop-filter: blur(10px);
+			backdrop-filter: blur(12px);
 		}
 
 		header {
 			display: flex;
-			align-items: flex-start;
 			justify-content: space-between;
-			gap: 12px;
+			gap: 18px;
+			align-items: flex-start;
 			margin-bottom: 18px;
 		}
 
 		h1 {
 			margin: 0;
 			font-weight: 600;
-			letter-spacing: -0.02em;
-			font-size: clamp(24px, 4vw, 32px);
+			letter-spacing: -0.03em;
+			font-size: clamp(28px, 4vw, 38px);
 		}
 
 		.eyebrow {
 			display: inline-flex;
 			align-items: center;
-			gap: 8px;
-			color: var(--muted);
+			gap: 10px;
 			font-size: 13px;
-			text-transform: uppercase;
 			letter-spacing: 0.08em;
+			text-transform: uppercase;
+			color: var(--muted);
 		}
 
 		.pill {
-			padding: 4px 10px;
+			padding: 5px 12px;
 			border-radius: 999px;
-			background: var(--panel-strong);
+			background: rgba(15, 138, 95, 0.1);
 			color: var(--accent);
-			border: 1px solid rgba(54, 214, 174, 0.4);
+			border: 1px solid rgba(15, 138, 95, 0.2);
 		}
 
 		.grid {
 			display: grid;
-			grid-template-columns: minmax(340px, 1fr) minmax(380px, 1.25fr);
+			grid-template-columns: minmax(340px, 1fr) minmax(340px, 0.9fr);
 			gap: 18px;
-			grid-auto-rows: 1fr;
-			flex: 1;
-			min-height: 0;
-			overflow: hidden;
 		}
 
 		.card {
 			background: var(--panel-strong);
-			border: 1px solid rgba(255, 255, 255, 0.05);
-			border-radius: 14px;
+			border: 1px solid rgba(30, 34, 48, 0.08);
+			border-radius: 18px;
 			padding: 16px;
-			box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+			min-height: 0;
 			display: flex;
 			flex-direction: column;
-			min-height: 0;
+			gap: 12px;
 		}
 
-		label {
-			display: block;
+		label, .section-title {
 			font-size: 13px;
-			letter-spacing: 0.02em;
-			margin-bottom: 8px;
+			letter-spacing: 0.04em;
+			text-transform: uppercase;
 			color: var(--muted);
 		}
 
 		textarea {
 			width: 100%;
-			min-height: 220px;
-			height: 100%;
-			flex: 1;
-			min-height: 0;
-			background: #0b0f1c;
+			min-height: 420px;
+			background: #fdfbf6;
 			color: var(--text);
-			border: 1px solid rgba(255, 255, 255, 0.08);
-			border-radius: 12px;
-			padding: 12px;
-			font-family: var(--mono);
-			font-size: 14px;
+			border: 1px solid rgba(30, 34, 48, 0.1);
+			border-radius: 14px;
+			padding: 14px;
+			font: 14px/1.45 var(--mono);
 			resize: vertical;
-			line-height: 1.4;
 			outline: none;
-			transition: border-color 0.15s ease, box-shadow 0.15s ease;
 		}
 
 		textarea:focus {
-			border-color: rgba(127, 215, 255, 0.6);
-			box-shadow: 0 0 0 3px rgba(127, 215, 255, 0.15);
+			border-color: rgba(15, 138, 95, 0.5);
+			box-shadow: 0 0 0 4px rgba(15, 138, 95, 0.08);
 		}
 
 		.controls {
 			display: flex;
-			align-items: center;
 			gap: 10px;
-			margin-top: 12px;
 			flex-wrap: wrap;
+			align-items: center;
 		}
 
 		button {
 			border: none;
 			border-radius: 12px;
 			padding: 12px 16px;
-			font-weight: 600;
+			font: 600 14px var(--sans);
 			cursor: pointer;
-			color: #0b0f1c;
-			background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
-			box-shadow: 0 12px 30px rgba(127, 215, 255, 0.35);
-			transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease;
+			background: linear-gradient(135deg, var(--accent) 0%, #1eb97f 100%);
+			color: white;
+			box-shadow: 0 12px 24px rgba(15, 138, 95, 0.18);
 		}
 
 		button:disabled {
-			opacity: 0.5;
+			opacity: 0.55;
 			cursor: not-allowed;
 			box-shadow: none;
-			transform: none;
 		}
 
-		button:hover:not(:disabled) {
-			transform: translateY(-1px);
-			box-shadow: 0 16px 38px rgba(127, 215, 255, 0.45);
-		}
-
-		.ghost {
+		button.ghost {
 			background: transparent;
 			color: var(--text);
-			border: 1px solid rgba(255, 255, 255, 0.1);
+			border: 1px solid rgba(30, 34, 48, 0.12);
 			box-shadow: none;
 		}
 
-		.status {
-			margin-left: auto;
-			font-size: 13px;
+		.status-line {
+			font-size: 14px;
 			color: var(--muted);
-			display: inline-flex;
-			align-items: center;
-			gap: 8px;
 		}
 
-		.dot {
-			width: 10px;
-			height: 10px;
-			border-radius: 50%;
-			background: var(--accent);
-			box-shadow: 0 0 12px rgba(54, 214, 174, 0.8);
-		}
-
-		.log {
-			font-family: var(--mono);
-			font-size: 12px;
-			background: #0b0f1c;
-			border-radius: 12px;
-			border: 1px solid rgba(255, 255, 255, 0.08);
-			padding: 12px;
-			flex: 1;
-			min-height: 0;
-			white-space: pre-wrap;
-			word-break: break-word;
-			overflow-y: auto;
-			line-height: 1.35;
-		}
-
-		.log .stderr { color: var(--danger); }
-		.log .stdout { color: var(--text); }
-		.log .meta { color: var(--muted); }
-
-		footer {
-			margin-top: 14px;
-			color: var(--muted);
-			font-size: 13px;
-			display: flex;
+		.progress-shell {
+			display: grid;
 			gap: 10px;
-			align-items: center;
-			flex-wrap: wrap;
 		}
 
-		@media (max-width: 720px) {
-			.controls { flex-wrap: wrap; }
-			.status { width: 100%; justify-content: flex-start; margin-left: 0; }
+		.progress-track {
+			height: 16px;
+			border-radius: 999px;
+			background: var(--track);
+			overflow: hidden;
+		}
+
+		.progress-fill {
+			height: 100%;
+			width: 0%;
+			background: linear-gradient(90deg, var(--accent) 0%, var(--accent-2) 100%);
+			transition: width 0.08s linear;
+		}
+
+		.metrics {
+			display: grid;
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+			gap: 10px;
+		}
+
+		.metric {
+			padding: 12px;
+			border-radius: 14px;
+			background: #fdfbf6;
+			border: 1px solid rgba(30, 34, 48, 0.06);
+		}
+
+		.metric strong {
+			display: block;
+			font-size: 22px;
+			margin-top: 6px;
+		}
+
+		.plot-wrap {
+			position: relative;
+			min-height: 340px;
+			border-radius: 14px;
+			background: #fdfbf6;
+			border: 1px solid rgba(30, 34, 48, 0.08);
+			overflow: hidden;
+		}
+
+		.plot-wrap canvas {
+			display: block;
+			width: 100%;
+			height: 100%;
+		}
+
+		.plot-legend {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 10px;
+			font-size: 12px;
+			font-family: var(--mono);
+		}
+
+		.plot-legend .swatch {
+			display: inline-block;
+			width: 12px;
+			height: 12px;
+			border-radius: 3px;
+			margin-right: 4px;
+			vertical-align: middle;
+		}
+
+		.note {
+			font-size: 13px;
+			color: var(--muted);
+		}
+
+		@media (max-width: 900px) {
+			.grid {
+				grid-template-columns: 1fr;
+			}
+
+			.metrics {
+				grid-template-columns: 1fr;
+			}
 		}
 	</style>
 </head>
@@ -234,134 +249,346 @@
 		<header>
 			<div>
 				<div class="eyebrow">
-					<span class="pill">WASM</span>
-					<span>ngspice + XSpice</span>
+					<span class="pill">Shared Library</span>
+					<span>Worker-backed browser API</span>
 				</div>
-				<h1>ngspice WASM Playground</h1>
-				<p style="margin: 6px 0 0; color: var(--muted);">Enter a SPICE simulation, run it in a fresh web worker, and stream the solver output live.</p>
+				<h1>ngspice Shared Library Demo</h1>
+				<p class="note">This demo uses the library-oriented WASM build and computes transient progress from the current time vector divided by the parsed <code>.tran</code> stop time.</p>
 			</div>
 		</header>
 
 		<div class="grid">
 			<section class="card">
-				<label for="netlist">Netlist</label>
+				<div style="display:flex;align-items:center;gap:12px">
+					<label for="netlist" style="margin:0">Netlist</label>
+					<select id="exampleSelect" style="font:13px var(--mono);padding:4px 8px;border-radius:8px;border:1px solid rgba(30,34,48,0.12);background:#fdfbf6;color:var(--text)">
+						<option value="rc">RC Low-Pass Filter</option>
+						<option value="xspice-opamp">XSPICE Opamp Inverting Amp</option>
+					</select>
+				</div>
 				<textarea id="netlist" spellcheck="false"></textarea>
 				<div class="controls">
-					<button id="run">Run simulation</button>
-					<button id="clear" class="ghost">Clear output</button>
-					<div class="status" id="status">
-						<span class="dot"></span>
-						<span>Idle</span>
-					</div>
+					<button id="run">Run library simulation</button>
+					<button id="reset" class="ghost">Reset ngspice</button>
 				</div>
+				<div class="note">Serve the repository root so this page can fetch <code>../dist/ngspice-lib.js</code>, <code>../dist/ngspice-lib.wasm</code>, the code models, and <code>spinit</code>.</div>
 			</section>
 
 			<section class="card">
-				<label for="log">Output</label>
-				<div id="log" class="log" aria-live="polite"></div>
+				<div class="section-title">Progress</div>
+				<div class="progress-shell">
+					<div class="progress-track"><div id="progressFill" class="progress-fill"></div></div>
+					<div id="status" class="status-line">Idle</div>
+				</div>
+				<div class="metrics">
+					<div class="metric">
+						<div class="section-title">Percent</div>
+						<strong id="progressPercent">0.0%</strong>
+					</div>
+					<div class="metric">
+						<div class="section-title">Current Time</div>
+						<strong id="currentTime">0 s</strong>
+					</div>
+					<div class="metric">
+						<div class="section-title">Final Time</div>
+						<strong id="finalTime">0 s</strong>
+					</div>
+				</div>
+				<div class="section-title">Plot</div>
+				<div class="plot-wrap"><canvas id="plotCanvas"></canvas></div>
+				<div id="plotLegend" class="plot-legend"></div>
 			</section>
 		</div>
-
-		<footer>
-			<span>Each run starts a clean worker and rebuilds the virtual filesystem with bundled code models.</span>
-			<span style="color: var(--text);">Tip:</span>
-			<span>Serve this folder (e.g. python -m http.server 8000) to avoid CORS issues.</span>
-		</footer>
 	</div>
 
-	<script>
-		const defaultNetlist = `* RC low-pass demo
-V1 in 0 PULSE(0 5 0 1n 1n 1u 2u)
+	<script type="module">
+		import { NgspiceLibraryClient } from '../dist/ngspice-client.js';
+
+		const COLORS = ['#0f8a5f','#f0ab3a','#b64747','#3a7cf0','#9b59b6','#e67e22','#1abc9c','#e74c3c','#2c3e50','#8e44ad'];
+
+		const EXAMPLES = {
+			rc: `* RC Low-Pass Filter
+V1 in 0 PULSE(0 5 0 10n 10n 1m 2m)
 R1 in out 1k
-C1 out 0 1u
+C1 out 0 10u
 
 .control
-	set numdgt=3
-	tran 1u 20u
-	print v(in) v(out)
+	set numdgt=6
+	tran 10u 10m
 .endc
 .end
-`;
+`,
+			'xspice-opamp': `* XSPICE Opamp – Inverting Amplifier
+* Uses the XSPICE 'gain' code model from analog.cm
 
+.param Rf = 100k
+.param Ri = 10k
+
+Vin in 0 SIN(0 0.5 1k)
+
+* Inverting summing junction
+Ri in inv {Ri}
+Rf inv out {Rf}
+
+* XSPICE ideal gain block as opamp (high open-loop gain)
+* %vd(inv, 0) is the differential input; output drives 'out'
+a1 %vd(0, inv) out amp1
+.model amp1 gain(gain=1e6 out_offset=0)
+
+* Output load
+Rload out 0 10k
+
+.control
+	tran 1u 5m
+.endc
+.end
+`,
+		};
+
+		const defaultNetlist = EXAMPLES.rc;
+
+		const client = new NgspiceLibraryClient({ workerUrl: '../dist/ngspice-worker.js', assetBaseUrl: '../dist' });
 		const netlistEl = document.getElementById('netlist');
 		const runBtn = document.getElementById('run');
-		const clearBtn = document.getElementById('clear');
-		const logEl = document.getElementById('log');
+		const resetBtn = document.getElementById('reset');
+		const progressFill = document.getElementById('progressFill');
+		const progressPercent = document.getElementById('progressPercent');
+		const currentTime = document.getElementById('currentTime');
+		const finalTime = document.getElementById('finalTime');
 		const statusEl = document.getElementById('status');
-		let currentWorker = null;
+		const plotCanvas = document.getElementById('plotCanvas');
+		const plotLegend = document.getElementById('plotLegend');
 
+		const exampleSelect = document.getElementById('exampleSelect');
 		netlistEl.value = defaultNetlist;
-		clearLog();
 
-		runBtn.addEventListener('click', () => {
-			if (currentWorker) {
-				currentWorker.terminate();
-				currentWorker = null;
-			}
-			startRun();
+		exampleSelect.addEventListener('change', () => {
+			netlistEl.value = EXAMPLES[exampleSelect.value] || '';
 		});
 
-		clearBtn.addEventListener('click', () => {
-			clearLog();
-		});
+		runBtn.addEventListener('click', async () => {
+			setRunning(true);
+			resetProgress();
 
-		function startRun() {
-			const netlist = netlistEl.value;
-			clearLog();
-			setStatus('Preparing worker…');
-			runBtn.disabled = true;
+			try {
+				const result = await client.run(netlistEl.value, {
+					onStatus: (message) => setStatus(message),
+					onProgress: ({ progress, currentTime: now, finalTime: stop }) => {
+						updateProgress(progress, now, stop);
+					},
+				});
 
-			currentWorker = new Worker('ngspice-worker.js');
-			currentWorker.onmessage = (event) => {
-				const { type } = event.data;
-				if (type === 'stdout') appendLog(event.data.line, 'stdout');
-				else if (type === 'stderr') appendLog(event.data.line, 'stderr');
-				else if (type === 'status') appendLog(event.data.message, 'meta');
-				else if (type === 'exit') setStatus(`Exit code ${event.data.code}`);
-				else if (type === 'error') {
-					appendLog(event.data.message, 'stderr');
-					setStatus('Errored');
-					finishRun();
-				} else if (type === 'done') {
-					setStatus(`Completed (exit ${event.data.exitCode})`);
-					finishRun();
+				updateProgress(result.progress || 1, result.finalTime || 0, result.finalTime || 0);
+				setStatus(`Completed (exit ${result.exitCode})`);
+
+				console.log('%c[ngspice] Simulation result:', 'font-weight:bold', result);
+				if (result.analyses && result.analyses.length) {
+					for (const analysis of result.analyses) {
+						console.log(`%c[ngspice] Analysis: ${analysis.type} (${analysis.meta.plotName})`, 'color:#0f8a5f;font-weight:bold', analysis);
+					}
+					plotAnalysis(result.analyses[0]);
 				}
-			};
-
-			currentWorker.onerror = (error) => {
-				appendLog(error.message || 'Worker error', 'stderr');
+			} catch (error) {
+				console.error('[ngspice] Simulation error:', error);
 				setStatus('Errored');
-				finishRun();
-			};
+			} finally {
+				setRunning(false);
+			}
+		});
 
-			currentWorker.postMessage({ type: 'run', netlist });
+		resetBtn.addEventListener('click', async () => {
+			try {
+				await client.reset();
+				setStatus('Reset complete');
+				resetProgress();
+			} catch (error) {
+				console.error('[ngspice] Reset error:', error);
+			}
+		});
+
+		window.addEventListener('beforeunload', () => {
+			client.dispose();
+		});
+
+		function setStatus(text) {
+			statusEl.textContent = text;
 		}
 
-		function appendLog(line, variant = 'stdout') {
-			const entry = document.createElement('div');
-			entry.className = variant;
-			entry.textContent = line;
-			logEl.appendChild(entry);
-			logEl.scrollTop = logEl.scrollHeight;
+		function setRunning(isRunning) {
+			runBtn.disabled = isRunning;
+			resetBtn.disabled = isRunning;
 		}
 
-		function clearLog() {
-			logEl.innerHTML = '';
-			appendLog('Ready. Edit the spice code and run a simulation.', 'meta');
+		function resetProgress() {
+			updateProgress(0, 0, 0);
 			setStatus('Idle');
 		}
 
-		function setStatus(text) {
-			const label = statusEl.querySelector('span:last-child');
-			label.textContent = text;
+		function updateProgress(progress, now, stop) {
+			const percent = Math.max(0, Math.min(progress || 0, 1));
+			progressFill.style.width = `${(percent * 100).toFixed(2)}%`;
+			progressPercent.textContent = `${(percent * 100).toFixed(1)}%`;
+			currentTime.textContent = formatSeconds(now || 0);
+			finalTime.textContent = formatSeconds(stop || 0);
 		}
 
-		function finishRun() {
-			runBtn.disabled = false;
-			if (currentWorker) {
-				currentWorker.terminate();
-				currentWorker = null;
+		function formatSeconds(value) {
+			if (!value) return '0 s';
+			if (value >= 1) return `${value.toFixed(4)} s`;
+			if (value >= 1e-3) return `${(value * 1e3).toFixed(3)} ms`;
+			if (value >= 1e-6) return `${(value * 1e6).toFixed(3)} us`;
+			return `${value.toExponential(3)} s`;
+		}
+
+		// --- Plotting ---
+
+		function plotAnalysis(analysis) {
+			plotLegend.innerHTML = '';
+
+			console.log('%c[plot] analysis input:', 'color:orange', {
+				type: analysis.type,
+				sweep: analysis.sweep,
+				vectorCount: analysis.vectors?.length,
+				vectors: analysis.vectors?.map(v => ({ name: v.name, len: v.real?.length })),
+			});
+
+			if (!analysis.sweep || analysis.vectors.length === 0) {
+				console.warn('[plot] Early return: sweep=%o, vectors.length=%d', analysis.sweep, analysis.vectors?.length);
+				const ctx = plotCanvas.getContext('2d');
+				ctx.clearRect(0, 0, plotCanvas.width, plotCanvas.height);
+				return;
 			}
+
+			const sweep = analysis.sweep.values;
+			const vectors = analysis.vectors;
+			const rect = plotCanvas.parentElement.getBoundingClientRect();
+			console.log('[plot] canvas parent rect:', rect.width, 'x', rect.height);
+			const dpr = window.devicePixelRatio || 1;
+			const W = rect.width * dpr;
+			const H = rect.height * dpr;
+			plotCanvas.width = W;
+			plotCanvas.height = H;
+			plotCanvas.style.width = `${rect.width}px`;
+			plotCanvas.style.height = `${rect.height}px`;
+
+			const ctx = plotCanvas.getContext('2d');
+			ctx.scale(dpr, dpr);
+			const w = rect.width;
+			const h = rect.height;
+
+			const pad = { top: 16, right: 16, bottom: 36, left: 56 };
+			const pw = w - pad.left - pad.right;
+			const ph = h - pad.top - pad.bottom;
+
+			// Compute Y range across all vectors
+			let yMin = Infinity, yMax = -Infinity;
+			for (const vec of vectors) {
+				for (let i = 0; i < vec.real.length; i++) {
+					const v = vec.real[i];
+					if (v < yMin) yMin = v;
+					if (v > yMax) yMax = v;
+				}
+			}
+			if (yMin === yMax) { yMin -= 1; yMax += 1; }
+			const yPad = (yMax - yMin) * 0.06;
+			yMin -= yPad;
+			yMax += yPad;
+
+			const xMin = sweep[0];
+			const xMax = sweep[sweep.length - 1];
+
+			const toX = (v) => pad.left + ((v - xMin) / (xMax - xMin)) * pw;
+			const toY = (v) => pad.top + (1 - (v - yMin) / (yMax - yMin)) * ph;
+
+			// Background
+			ctx.fillStyle = '#fdfbf6';
+			ctx.fillRect(0, 0, w, h);
+
+			// Grid
+			ctx.strokeStyle = 'rgba(30,34,48,0.08)';
+			ctx.lineWidth = 1;
+			const yTicks = niceSteps(yMin, yMax, 6);
+			const xTicks = niceSteps(xMin, xMax, 6);
+
+			ctx.font = '11px JetBrains Mono, monospace';
+			ctx.fillStyle = '#59627a';
+			ctx.textAlign = 'right';
+			ctx.textBaseline = 'middle';
+			for (const t of yTicks) {
+				const y = toY(t);
+				ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(w - pad.right, y); ctx.stroke();
+				ctx.fillText(formatAxis(t), pad.left - 6, y);
+			}
+
+			ctx.textAlign = 'center';
+			ctx.textBaseline = 'top';
+			for (const t of xTicks) {
+				const x = toX(t);
+				ctx.beginPath(); ctx.moveTo(x, pad.top); ctx.lineTo(x, h - pad.bottom); ctx.stroke();
+				ctx.fillText(formatAxis(t), x, h - pad.bottom + 6);
+			}
+
+			// Axis labels
+			ctx.fillStyle = '#59627a';
+			ctx.font = '12px Space Grotesk, system-ui, sans-serif';
+			ctx.textAlign = 'center';
+			ctx.fillText(`${analysis.sweep.name}${analysis.sweep.unit ? ' (' + analysis.sweep.unit + ')' : ''}`, pad.left + pw / 2, h - 4);
+
+			// Draw traces
+			for (let vi = 0; vi < vectors.length; vi++) {
+				const vec = vectors[vi];
+				const color = COLORS[vi % COLORS.length];
+				ctx.strokeStyle = color;
+				ctx.lineWidth = 1.5;
+				ctx.beginPath();
+
+				// Downsample if many points
+				const step = Math.max(1, Math.floor(sweep.length / pw));
+				for (let i = 0; i < sweep.length; i += step) {
+					const x = toX(sweep[i]);
+					const y = toY(vec.real[i]);
+					if (i === 0) ctx.moveTo(x, y);
+					else ctx.lineTo(x, y);
+				}
+				ctx.stroke();
+
+				// Legend entry
+				const entry = document.createElement('span');
+				entry.innerHTML = `<span class="swatch" style="background:${color}"></span>${vec.name}${vec.unit ? ' (' + vec.unit + ')' : ''}`;
+				plotLegend.appendChild(entry);
+			}
+		}
+
+		function niceSteps(min, max, count) {
+			const range = max - min;
+			if (range === 0) return [min];
+			const rough = range / count;
+			const mag = Math.pow(10, Math.floor(Math.log10(rough)));
+			const norm = rough / mag;
+			let step;
+			if (norm < 1.5) step = mag;
+			else if (norm < 3.5) step = 2 * mag;
+			else if (norm < 7.5) step = 5 * mag;
+			else step = 10 * mag;
+
+			const ticks = [];
+			let start = Math.ceil(min / step) * step;
+			for (let v = start; v <= max + step * 0.001; v += step) {
+				ticks.push(v);
+			}
+			return ticks;
+		}
+
+		function formatAxis(v) {
+			const abs = Math.abs(v);
+			if (abs === 0) return '0';
+			if (abs >= 1e6) return (v / 1e6).toPrecision(3) + 'M';
+			if (abs >= 1e3) return (v / 1e3).toPrecision(3) + 'k';
+			if (abs >= 1) return v.toPrecision(3);
+			if (abs >= 1e-3) return (v * 1e3).toPrecision(3) + 'm';
+			if (abs >= 1e-6) return (v * 1e6).toPrecision(3) + 'u';
+			if (abs >= 1e-9) return (v * 1e9).toPrecision(3) + 'n';
+			return v.toExponential(1);
 		}
 	</script>
 </body>

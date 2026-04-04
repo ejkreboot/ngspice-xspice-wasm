@@ -13,4 +13,6 @@ WORKDIR /build
 COPY build-ngspice.sh .
 RUN chmod +x build-ngspice.sh
 
-CMD ["./build-ngspice.sh"]
+COPY src/ /build/src-js/
+
+CMD ["sh", "-lc", "./${NGSPICE_BUILD_SCRIPT:-build-ngspice.sh}"]
