@@ -137,7 +137,7 @@
 			cursor: pointer;
 			background: linear-gradient(135deg, var(--accent) 0%, #1eb97f 100%);
 			color: white;
-			box-shadow: 0 12px 24px rgba(15, 138, 95, 0.18);
+			box-shadow: 0 3px 6px rgba(15, 138, 95, 0.18);
 		}
 
 		button:disabled {
@@ -173,7 +173,7 @@
 		.progress-fill {
 			height: 100%;
 			width: 0%;
-			background: linear-gradient(90deg, var(--accent) 0%, var(--accent-2) 100%);
+			background: linear-gradient(90deg, var(--accent-2) 0%, var(--accent) 100%);
 			transition: width 0.08s linear;
 		}
 
@@ -248,12 +248,7 @@
 	<div class="shell">
 		<header>
 			<div>
-				<div class="eyebrow">
-					<span class="pill">Shared Library</span>
-					<span>Worker-backed browser API</span>
-				</div>
 				<h1>ngspice Shared Library Demo</h1>
-				<p class="note">This demo uses the library-oriented WASM build and computes transient progress from the current time vector divided by the parsed <code>.tran</code> stop time.</p>
 			</div>
 		</header>
 
@@ -309,20 +304,21 @@
 
 		const EXAMPLES = {
 			rc: `* RC Low-Pass Filter
-V1 in 0 PULSE(0 5 0 10n 10n 1m 2m)
-R1 in out 1k
-C1 out 0 10u
+* RC Low-Pass Filter Demo
+V1 in1 0 SIN(0 4.5 100)
+V2 in2 in1 SIN(0 1 5000)
+R1 in2 out 1k
+C1 out 0 1u
 
 .control
-	set numdgt=6
-	tran 10u 10m
+    tran 10u 20m
 .endc
 .end
 `,
 			'ac-rc': `* AC Analysis – RC Low-Pass Filter
 V1 in 0 AC 1
 R1 in out 1k
-C1 out 0 100n
+C1 out 0 1u
 
 .control
 	ac dec 50 1 10Meg
@@ -371,6 +367,7 @@ Rload out 0 10k
 		const plotLegend = document.getElementById('plotLegend');
 
 		const exampleSelect = document.getElementById('exampleSelect');
+		exampleSelect.value = 'rc';
 		netlistEl.value = defaultNetlist;
 
 		exampleSelect.addEventListener('change', () => {
