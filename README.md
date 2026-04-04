@@ -6,7 +6,21 @@ A Docker-based build system for compiling [ngspice](http://ngspice.sourceforge.n
 
 This project provides a reproducible build environment for creating a WASM version of ngspice, a popular open-source SPICE circuit simulator. The build includes XSPICE code model support with dynamic loading capabilities, enabling the simulator to run in web browsers with support for more advanced models that use XSPICE (e.g., poly-controlled sources used in many opamp subcircuits).
 
-This project builds on the earlier work of [danchitnis](https://github.com/danchitnis/) who demonstrated compiling ngspice to WASM. The key difference here is that ngspice is built as a persistent, stateful library module that can be reused across multiple simulation jobs without re-initializing, and exposes callbacks to monitor analysis progress in real time.
+This project builds on the earlier work of [danchitnis](https://github.com/danchitnis/) who demonstrated compiling ngspice to WASM. The key difference here is that this build exposes ngspice as a persistent, callback-instrumented WASM library module using the libngspice API, enabling bidirectional asynchronous communication between the WASM execution context and the host JavaScript environment, and supporting multiple simulation jobs within a single module instance lifetime — as opposed to a standalone WASM executable that models the ngspice CLI process and provides no structured host callback interface."
+
+This build also supports side loading of XSPICE models. 
+
+## Demo
+
+A prebuilt playground lives in [demo/index.html](demo/index.html). It uses the client/worker pair from `dist/`, plots the first analysis result on a canvas, and logs the full normalized `SimulationResult` object to the browser console.
+
+From the repo root:
+
+```bash
+python -m http.server 3000
+```
+
+Open http://localhost:3000/demo/ 
 
 ## Features
 
@@ -182,7 +196,7 @@ The build script performs the following steps:
 7. Collects output files in `./dist`
 8. Copies JavaScript client, worker, and customized spinit into `./dist`
 
-## Code Models
+## XSPICE Code Models
 
 The following XSPICE code models are included:
 
@@ -194,6 +208,22 @@ The following XSPICE code models are included:
 - `table.cm` - Table-based models
 - `tlines.cm` - Transmission line models
 
+## Custom XSPICE Code Models
+
+In theory, you could compile your own XSPICE code models to include in your analyses. Models must be compiled as Emscripten Side Modules using the [Emscripten toolchain](https://emscripten.org/docs/getting_started/downloads.html):
+
+```sh
+emcc -sSIDE_MODULE=1 -O2 -o mymodel.cm mymodel.c
+```
+
+Place the resulting `mymodel.cm` file in the same directory as `ngspice-worker.js`, then add a `codemodel` directive to `spinit` in that same directory:
+
+```
+codemodel /usr/local/lib/ngspice/mymodel.cm
+```
+
+The model should be loaded automatically when ngspice initializes.
+
 ## Technical Details
 
 - **Emscripten version**: 3.1.50
@@ -202,24 +232,10 @@ The following XSPICE code models are included:
 - **Default WASM memory**: 256 MiB initial, growth disabled
 - **No dependencies on**: OpenMP, readline, X11
 
-## Demo
-
-A prebuilt playground lives in [demo/index.html](demo/index.html). It uses the client/worker pair from `dist/`, plots the first analysis result on a canvas, and logs the full normalized `SimulationResult` object to the browser console.
-
-### Run locally
-
-From the repo root:
-
-```bash
-python -m http.server 3000
-```
-
-Open http://localhost:3000/demo/ — edit the netlist and click **Run library simulation**. The plot renders the sweep vectors; open DevTools to inspect the structured result objects.
-
 ### Notes
 
 - Serve over HTTP(S) to avoid CORS when fetching WASM and code models.
-- Each run reuses the shared ngspice instance; click **Reset ngspice** to clear state.
+- Each run reuses the shared ngspice instance
 - The worker automatically strips `.save` and `.wrdt` directives from netlists to ensure all vectors are available for extraction.
 - The build disables `/proc/meminfo` probing for WASM targets.
 
@@ -227,7 +243,7 @@ Open http://localhost:3000/demo/ — edit the netlist and click **Run library si
 
 - [ngspice](http://ngspice.sourceforge.net/) - Original SPICE simulator
 - [Emscripten](https://emscripten.org/) - LLVM-to-WebAssembly compiler
-- Source repository: [danchitnis/ngspice-sf-mirror](https://github.com/danchitnis/ngspice-sf-mirror)
+- ngspice source repository: [danchitnis/ngspice-sf-mirror](https://github.com/danchitnis/ngspice-sf-mirror)
 
 ## License
 
