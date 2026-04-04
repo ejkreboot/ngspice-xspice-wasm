@@ -263,6 +263,7 @@
 					<label for="netlist" style="margin:0">Netlist</label>
 					<select id="exampleSelect" style="font:13px var(--mono);padding:4px 8px;border-radius:8px;border:1px solid rgba(30,34,48,0.12);background:#fdfbf6;color:var(--text)">
 						<option value="rc">RC Low-Pass Filter</option>
+						<option value="ac-rc">AC Analysis – RC Filter</option>
 						<option value="xspice-opamp">XSPICE Opamp Inverting Amp</option>
 					</select>
 				</div>
@@ -315,6 +316,16 @@ C1 out 0 10u
 .control
 	set numdgt=6
 	tran 10u 10m
+.endc
+.end
+`,
+			'ac-rc': `* AC Analysis – RC Low-Pass Filter
+V1 in 0 AC 1
+R1 in out 1k
+C1 out 0 100n
+
+.control
+	ac dec 50 1 10Meg
 .endc
 .end
 `,
@@ -459,6 +470,7 @@ Rload out 0 10k
 				return;
 			}
 
+			const isAC = analysis.type === 'ac';
 			const sweep = analysis.sweep.values;
 			const vectors = analysis.vectors;
 			const rect = plotCanvas.parentElement.getBoundingClientRect();
@@ -480,11 +492,24 @@ Rload out 0 10k
 			const pw = w - pad.left - pad.right;
 			const ph = h - pad.top - pad.bottom;
 
+			// For AC analysis, compute magnitude in dB; otherwise use raw real values
+			const yData = vectors.map(vec => {
+				if (isAC && vec.complex && vec.imag) {
+					const mag = new Float64Array(vec.real.length);
+					for (let i = 0; i < vec.real.length; i++) {
+						const m = Math.sqrt(vec.real[i] ** 2 + vec.imag[i] ** 2);
+						mag[i] = 20 * Math.log10(Math.max(m, 1e-30));
+					}
+					return mag;
+				}
+				return vec.real;
+			});
+
 			// Compute Y range across all vectors
 			let yMin = Infinity, yMax = -Infinity;
-			for (const vec of vectors) {
-				for (let i = 0; i < vec.real.length; i++) {
-					const v = vec.real[i];
+			for (const yd of yData) {
+				for (let i = 0; i < yd.length; i++) {
+					const v = yd[i];
 					if (v < yMin) yMin = v;
 					if (v > yMax) yMax = v;
 				}
@@ -496,8 +521,11 @@ Rload out 0 10k
 
 			const xMin = sweep[0];
 			const xMax = sweep[sweep.length - 1];
+			const useLogX = isAC && xMin > 0;
 
-			const toX = (v) => pad.left + ((v - xMin) / (xMax - xMin)) * pw;
+			const toX = useLogX
+				? (v) => pad.left + ((Math.log10(v) - Math.log10(xMin)) / (Math.log10(xMax) - Math.log10(xMin))) * pw
+				: (v) => pad.left + ((v - xMin) / (xMax - xMin)) * pw;
 			const toY = (v) => pad.top + (1 - (v - yMin) / (yMax - yMin)) * ph;
 
 			// Background
@@ -508,7 +536,7 @@ Rload out 0 10k
 			ctx.strokeStyle = 'rgba(30,34,48,0.08)';
 			ctx.lineWidth = 1;
 			const yTicks = niceSteps(yMin, yMax, 6);
-			const xTicks = niceSteps(xMin, xMax, 6);
+			const xTicks = useLogX ? logTicks(xMin, xMax) : niceSteps(xMin, xMax, 6);
 
 			ctx.font = '11px JetBrains Mono, monospace';
 			ctx.fillStyle = '#59627a';
@@ -534,6 +562,15 @@ Rload out 0 10k
 			ctx.textAlign = 'center';
 			ctx.fillText(`${analysis.sweep.name}${analysis.sweep.unit ? ' (' + analysis.sweep.unit + ')' : ''}`, pad.left + pw / 2, h - 4);
 
+			// Y-axis label for AC
+			if (isAC) {
+				ctx.save();
+				ctx.translate(12, pad.top + ph / 2);
+				ctx.rotate(-Math.PI / 2);
+				ctx.fillText('dB', 0, 0);
+				ctx.restore();
+			}
+
 			// Draw traces
 			for (let vi = 0; vi < vectors.length; vi++) {
 				const vec = vectors[vi];
@@ -543,10 +580,11 @@ Rload out 0 10k
 				ctx.beginPath();
 
 				// Downsample if many points
+				const data = yData[vi];
 				const step = Math.max(1, Math.floor(sweep.length / pw));
 				for (let i = 0; i < sweep.length; i += step) {
 					const x = toX(sweep[i]);
-					const y = toY(vec.real[i]);
+					const y = toY(data[i]);
 					if (i === 0) ctx.moveTo(x, y);
 					else ctx.lineTo(x, y);
 				}
@@ -557,6 +595,17 @@ Rload out 0 10k
 				entry.innerHTML = `<span class="swatch" style="background:${color}"></span>${vec.name}${vec.unit ? ' (' + vec.unit + ')' : ''}`;
 				plotLegend.appendChild(entry);
 			}
+		}
+
+		function logTicks(min, max) {
+			const ticks = [];
+			const startExp = Math.floor(Math.log10(min));
+			const endExp = Math.ceil(Math.log10(max));
+			for (let e = startExp; e <= endExp; e++) {
+				const v = Math.pow(10, e);
+				if (v >= min && v <= max) ticks.push(v);
+			}
+			return ticks;
 		}
 
 		function niceSteps(min, max, count) {

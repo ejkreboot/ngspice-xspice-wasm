@@ -6,6 +6,8 @@ A Docker-based build system for compiling [ngspice](http://ngspice.sourceforge.n
 
 This project provides a reproducible build environment for creating a WASM version of ngspice, a popular open-source SPICE circuit simulator. The build includes XSPICE code model support with dynamic loading capabilities, enabling the simulator to run in web browsers with support for more advanced models that use XSPICE (e.g., poly-controlled sources used in many opamp subcircuits).
 
+This project builds on the earlier work of [danchitnis](https://github.com/danchitnis/) who demonstrated compiling ngspice to WASM. The key difference here is that ngspice is built as a persistent, stateful library module that can be reused across multiple simulation jobs without re-initializing, and exposes callbacks to monitor analysis progress in real time.
+
 ## Features
 
 - **Full ngspice compilation to WASM**: Core simulator compiled with Emscripten
@@ -19,6 +21,8 @@ This project provides a reproducible build environment for creating a WASM versi
 
 - Docker installed on your system
 - Sufficient disk space (~2-3 GB for Docker image and build artifacts)
+
+> **Note:** Prebuilt artifacts are included in the `dist/` directory of this repository. If you don't need to modify the build process, you can use them directly — no Docker build required.
 
 ## Building
 
@@ -176,7 +180,7 @@ The build script performs the following steps:
 5. Builds the native `cmpp` preprocessor
 6. Compiles ngspice and all code models
 7. Collects output files in `./dist`
-8. Copies JavaScript client and worker into `./dist`
+8. Copies JavaScript client, worker, and customized spinit into `./dist`
 
 ## Code Models
 

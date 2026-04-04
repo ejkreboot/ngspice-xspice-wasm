@@ -247,6 +247,22 @@ function readVectorData(infoPtr, readImag) {
 	}
 
 	const realDataPtr = HEAPU32[(infoPtr + VECTOR_INFO_REALDATA_OFFSET) >> 2];
+	const compDataPtr = HEAPU32[(infoPtr + VECTOR_INFO_IMAGDATA_OFFSET) >> 2];
+
+	// For complex vectors (AC analysis), ngspice stores data as an array of
+	// ngcomplex_t structs ({double real; double imag;}) in the compdata field,
+	// with realdata set to NULL.
+	if (!realDataPtr && compDataPtr && readImag) {
+		const real = new Float64Array(length);
+		const imag = new Float64Array(length);
+		const baseIdx = compDataPtr >> 3; // byte offset to float64 index
+		for (let i = 0; i < length; i++) {
+			real[i] = HEAPF64[baseIdx + i * 2];
+			imag[i] = HEAPF64[baseIdx + i * 2 + 1];
+		}
+		return { real, imag, length };
+	}
+
 	if (!realDataPtr) {
 		return null;
 	}
@@ -255,11 +271,12 @@ function readVectorData(infoPtr, readImag) {
 	real.set(HEAPF64.subarray(realDataPtr >> 3, (realDataPtr >> 3) + length));
 
 	let imag = null;
-	if (readImag) {
-		const imagDataPtr = HEAPU32[(infoPtr + VECTOR_INFO_IMAGDATA_OFFSET) >> 2];
-		if (imagDataPtr) {
-			imag = new Float64Array(length);
-			imag.set(HEAPF64.subarray(imagDataPtr >> 3, (imagDataPtr >> 3) + length));
+	if (readImag && compDataPtr) {
+		// If both realdata and compdata exist, compdata holds ngcomplex_t structs
+		imag = new Float64Array(length);
+		const baseIdx = compDataPtr >> 3;
+		for (let i = 0; i < length; i++) {
+			imag[i] = HEAPF64[baseIdx + i * 2 + 1];
 		}
 	}
 
