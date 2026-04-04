@@ -489,13 +489,12 @@ Rload out 0 10k
 			const pw = w - pad.left - pad.right;
 			const ph = h - pad.top - pad.bottom;
 
-			// For AC analysis, compute magnitude in dB; otherwise use raw real values
+			// For AC analysis, compute magnitude in volts; otherwise use raw real values
 			const yData = vectors.map(vec => {
 				if (isAC && vec.complex && vec.imag) {
 					const mag = new Float64Array(vec.real.length);
 					for (let i = 0; i < vec.real.length; i++) {
-						const m = Math.sqrt(vec.real[i] ** 2 + vec.imag[i] ** 2);
-						mag[i] = 20 * Math.log10(Math.max(m, 1e-30));
+						mag[i] = Math.sqrt(vec.real[i] ** 2 + vec.imag[i] ** 2);
 					}
 					return mag;
 				}
@@ -564,7 +563,7 @@ Rload out 0 10k
 				ctx.save();
 				ctx.translate(12, pad.top + ph / 2);
 				ctx.rotate(-Math.PI / 2);
-				ctx.fillText('dB', 0, 0);
+				ctx.fillText('V', 0, 0);
 				ctx.restore();
 			}
 
